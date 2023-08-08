@@ -1,0 +1,40 @@
+#!/bin/sh
+set -e
+   
+lb config noauto \
+    --mode debian \
+    --system live \
+    --interactive shell \
+    --bootappend-live "boot=live components persistence console=tty1 console=ttyS0,115200 username=live hostname=debian autologin" \
+    --bootappend-install "boot=components console=tty1 console=ttyS0,115200" \
+    --bootloaders grub-efi \
+    --binary-image iso-hybrid \
+    --debian-installer live \
+    --debian-installer-distribution bullseye \
+    --distribution bullseye \
+    --debian-installer-gui true \
+    --architectures amd64 \
+    --mirror-bootstrap http://ftp.de.debian.org/debian/ \
+    --mirror-chroot http://ftp.de.debian.org/debian/ \
+    --mirror-binary http://ftp.de.debian.org/debian/ \
+    --mirror-binary-security http://security.debian.org/ \
+    --mirror-chroot-security http://security.debian.org/ \
+    --archive-areas "main contrib non-free non-free-firmware" \
+    --backports true \
+    --security true \
+    --updates true \
+    --source false \
+    --linux-packages linux-image \
+    --linux-flavours amd64 \
+    --apt-recommends false \
+    --binary-filesystem ext4 \
+    --firmware-binary true \
+    --firmware-chroot true \
+    --initramfs live-boot \
+    --image-name 'Live-Build' \
+    --iso-application 'Live-Build' \
+    --iso-publisher 'Live-Build GNU/Linux' \
+    --iso-volume 'Live-Build' \
+    --image-name 'Live-Build-0.1' 
+    "${@}"
+
